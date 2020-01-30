@@ -9,16 +9,16 @@
 
 // EXAMPLE SOLUTION CODE:
 class Airplane {
-  constructor(name) {
-    this.name = name;
-    this.isFlying = false;
-  }
-  takeOff() {
-    this.isFlying = true;
-  }
-  land() {
-    this.isFlying = false;
-  }
+    constructor(name) {
+        this.name = name;
+        this.isFlying = false;
+    }
+    takeOff() {
+        this.isFlying = true;
+    }
+    land() {
+        this.isFlying = false;
+    }
 }
 
 /*
@@ -34,15 +34,55 @@ class Airplane {
     - Give instances of Person the ability to `.eat("someFood")`:
         + When eating an edible, it should be pushed into the `stomach`.
         + The `eat` method should have no effect if there are 10 items in the `stomach`.
+
     - Give instances of Person the ability to `.poop()`:
         + When an instance poops, its `stomach` should empty.
+
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
-
+let stomach = [];
 class Person {
-
+    constructor(name, age) {
+        (this.name = name), (this.age = age), (this.stomach = stomach);
+    }
+    eat(thisFood) {
+        if (this.stomach.length >= 10) {
+            this.stomach.length = 10;
+        } else {
+            this.stomach.push(thisFood);
+        }
+    }
+    poop() {
+        stomach.length = 0;
+    }
+    toString() {
+        return `${this.name}, ${this.age}`;
+    }
 }
+
+// const michael = new Person({
+//   name: "michael",
+//   age: 24
+// })
+
+// console.log(michael);
+// console.log (michael.toString());
+// michael.eat("donut");
+// michael.eat("apple");
+// michael.eat("banana");
+// michael.eat("potato");
+// michael.eat("donut");
+// michael.eat("apple");
+// michael.eat("banana");
+// michael.eat("potato");
+// michael.eat("donut");
+// michael.eat("apple");
+// michael.eat("banana");
+// michael.eat("potato");
+// console.log(michael.stomach);
+// michael.poop();
+// console.log(michael.stomach);
 
 /*
   TASK 2
@@ -50,17 +90,48 @@ class Person {
     - All instances built with Car:
         + should initialize with a `tank` at 0
         + should initialize with an `odometer` at 0
+
     - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
+
     - Give cars ability to `.drive(distance)`. The distance driven:
         + Should cause the `odometer` to go up.
         + Should cause the the `tank` to go down taking `milesPerGallon` into account.
+
     - A car which runs out of `fuel` while driving can't drive any more distance:
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
 class Car {
-
+    constructor(model, milesPerGallon) {
+        (this.model = model),
+            (this.milesPerGallon = milesPerGallon),
+            (this.tank = 0),
+            (this.odometer = 0);
+    }
+    fill(gallons) {
+        this.tank += gallons;
+    }
+    drive(distance) {}
 }
+
+// this.milesPerGallon = distance / this.tank;
+// if ((this.tank = 0)) {
+//     console.log(`I ran out of fuel at ${this.odometer} miles!`);
+// }
+// if (this.tank > 0) {
+//     this.odometer += distance;
+//     this.tank = this.tank - distance / this.milesPerGallon;
+// }
+// const toyotaCorolla = new Car ({
+//   model: "Toyota Corolla",
+//   milesPerGallon: 27,
+
+// });
+// console.log(toyotaCorolla);
+// toyotaCorolla.fill(10)
+// console.log(toyotaCorolla);
+// toyotaCorolla.drive(271);
+// console.log(toyotaCorolla);
 
 /*
   TASK 3
@@ -75,9 +146,22 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+    constructor(lambdaSian) {
+        (this.name = lambdaSian.name),
+            (this.age = lambdaSian.age),
+            (this.location = lambdaSian.location);
+    }
+    speak() {
+        return `Hello my name is ${this.name}, I am from ${this.location}`;
+    }
 }
-
+// const me = new Lambdasian({
+//     name: "Michael",
+//     age: 24,
+//     location: "Oklahoma"
+// });
+// console.log(me);
+// console.log(me.speak());
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -92,8 +176,19 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+    constructor(lambdaSian) {
+        super(lambdaSian);
+        this.specialty = lambdaSian.specialty;
+        this.favLanguage = lambdaSian.favLanguage;
+        this.catchPhrase = lambdaSian.catchPhrase;
+    }
+    demo(subject) {
+        return `Today we are learning about ${subject}`;
+    }
+    grade(student, subject) {
+        return `${student.name} receives a perfect score on ${subject}`;
+    }
 }
 
 /*
@@ -111,10 +206,24 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian {
+    constructor(lambdaSian) {
+        super(lambdaSian);
+        this.previousBackground = lambdaSian.previousBackground;
+        this.className = lambdaSian.className;
+        this.favSubjects = lambdaSian.favSubjects;
+    }
 
+    listSubjects() {
+        return `Loving ${this.favSubjects}!`;
+    }
+    PRAssignment(subject) {
+        return `${this.name} has submitted a PR for ${subject}`;
+    }
+    sprintChallenge(subject) {
+        return `${this.name} has begun sprint challenge on ${subject}`;
+    }
 }
-
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
@@ -128,9 +237,7 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
-}
+class ProjectManager {}
 
 /*
   STRETCH PROBLEM (no tests!)
@@ -144,13 +251,27 @@ class ProjectManager {
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
-if (typeof exports !== 'undefined') {
-  module.exports = module.exports || {}
-  if (Airplane) { module.exports.Airplane = Airplane }
-  if (Person) { module.exports.Person = Person }
-  if (Car) { module.exports.Car = Car }
-  if (Lambdasian) { module.exports.Lambdasian = Lambdasian }
-  if (Instructor) { module.exports.Instructor = Instructor }
-  if (Student) { module.exports.Student = Student }
-  if (ProjectManager) { module.exports.ProjectManager = ProjectManager }
+if (typeof exports !== "undefined") {
+    module.exports = module.exports || {};
+    if (Airplane) {
+        module.exports.Airplane = Airplane;
+    }
+    if (Person) {
+        module.exports.Person = Person;
+    }
+    if (Car) {
+        module.exports.Car = Car;
+    }
+    if (Lambdasian) {
+        module.exports.Lambdasian = Lambdasian;
+    }
+    if (Instructor) {
+        module.exports.Instructor = Instructor;
+    }
+    if (Student) {
+        module.exports.Student = Student;
+    }
+    if (ProjectManager) {
+        module.exports.ProjectManager = ProjectManager;
+    }
 }
