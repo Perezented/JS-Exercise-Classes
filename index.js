@@ -144,9 +144,11 @@ class Instructor extends Lambdasian {
     }
     checksGrades(student) {
         const randomChoice = function() {
-            if (Math.random() <= 0.5) {
+            if (Math.random() <= 0.7) {
                 return true;
-            } else return false;
+            } else {
+                return false;
+            }
         };
         if (randomChoice() == true) {
             return (student.grade += randomGradeForInstructor);
@@ -155,6 +157,7 @@ class Instructor extends Lambdasian {
         }
     }
 }
+const randomGradeForInstructor = Math.round(100 * Math.random());
 
 /*
   TASK 5
@@ -189,10 +192,18 @@ class Student extends Lambdasian {
     sprintChallenge(subject) {
         return `${this.name} has begun sprint challenge on ${subject}`;
     }
+
+    graduate() {
+        if (this.grade < 70) {
+            return `${this.name} has completed Lambda and has been endorsed by the school too!`;
+        } else {
+            Instructor.checksGrades(this.grade);
+        }
+    }
 }
 
 const randomGradeForStudent = Math.round(100 * Math.random());
-const randomGradeForInstructor = Math.round(100 * Math.random());
+
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
