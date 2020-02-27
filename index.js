@@ -80,7 +80,16 @@ class Car {
     fill(gallons) {
         this.tank += gallons;
     }
-    drive(distance) {}
+    drive(distance) {
+        if (this.tank * this.milesPerGallon < distance) {
+            this.odometer = this.tank * this.milesPerGallon;
+            this.tank -= this.tank;
+            return `I ran out of fuel at ${this.odometer} miles!`;
+        } else if (this.tank * this.milesPerGallon > distance) {
+            this.tank -= distance / this.milesPerGallon;
+            this.odometer += distance;
+        }
+    }
 }
 
 /*
@@ -95,7 +104,16 @@ class Car {
         + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
         + {name} and {location} of course come from the instance's own properties.
 */
-class Lambdasian {}
+class Lambdasian {
+    constructor(attributes) {
+        (this.name = attributes.name),
+            (this.age = attributes.age),
+            (this.location = attributes.location);
+    }
+    speak() {
+        return `Hello my name is ${this.name}, I an from ${this.location}`;
+    }
+}
 
 /*
   TASK 4
