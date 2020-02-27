@@ -142,6 +142,18 @@ class Instructor extends Lambdasian {
     grade(student, subject) {
         return `${student.name} recieves a perfect score on ${subject}`;
     }
+    checksGrades(student) {
+        const randomChoice = function() {
+            if (Math.random() <= 0.5) {
+                return true;
+            } else return false;
+        };
+        if (randomChoice() == true) {
+            return (student.grade += randomGradeForInstructor);
+        } else {
+            return (student.grade -= randomGradeForInstructor);
+        }
+    }
 }
 
 /*
@@ -159,12 +171,14 @@ class Instructor extends Lambdasian {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
+
 class Student extends Lambdasian {
     constructor(attributes) {
         super(attributes);
         (this.previousBackground = attributes.previousBackground),
             (this.className = attributes.className),
-            (this.favSubjects = attributes.favSubjects);
+            (this.favSubjects = attributes.favSubjects),
+            (this.grade = randomGradeForStudent);
     }
     listSubjects() {
         return `${this.favSubjects}`;
@@ -177,6 +191,8 @@ class Student extends Lambdasian {
     }
 }
 
+const randomGradeForStudent = Math.round(100 * Math.random());
+const randomGradeForInstructor = Math.round(100 * Math.random());
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
@@ -190,7 +206,19 @@ class Student extends Lambdasian {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {}
+class ProjectManager extends Instructor {
+    constructor(attributes) {
+        super(attributes);
+        (this.gradClassName = attributes.gradClassName),
+            (this.favInstructor = attributes.favInstructor);
+    }
+    standUp(channel) {
+        return `${this.name} announces to ${channel}, @channel standy times!`;
+    }
+    debugsCode(student, subject) {
+        return `${this.name} debugs ${student.name}'s code on ${subject}`;
+    }
+}
 
 /*
   STRETCH PROBLEM (no tests!)
