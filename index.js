@@ -111,10 +111,20 @@ class Lambdasian {
             (this.location = attributes.location);
     }
     speak() {
-        return `Hello my name is ${this.name}, I an from ${this.location}`;
+        return `Hello my name is ${this.name}, I am from ${this.location}`;
     }
 }
-
+const ls0 = new Lambdasian({
+    name: "LambdaSian0",
+    age: 30,
+    location: "inside your computer"
+});
+console.log(ls0);
+ls0.speak();
+var consoleLineBreak = console.log(
+    "-----------------------------------------------------"
+);
+consoleLineBreak;
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -142,22 +152,46 @@ class Instructor extends Lambdasian {
     grade(student, subject) {
         return `${student.name} recieves a perfect score on ${subject}`;
     }
-    checksGrades(student) {
+    checksGrades(studentGrade) {
         const randomChoice = function() {
-            if (Math.random() <= 0.7) {
+            if (Math.random() <= 0.1) {
                 return true;
             } else {
                 return false;
             }
         };
         if (randomChoice() == true) {
-            return (student.grade += randomGradeForInstructor);
+            const newHigherGrade = (studentGrade += randomGradeForInstructor);
+            if (newHigherGrade > 100) {
+                return 100;
+            } else {
+                return newHigherGrade;
+            }
         } else {
-            return (student.grade -= randomGradeForInstructor);
+            const newLowerGrade = (studentGrade -= randomGradeForInstructor);
+            if (newLowerGrade < 0) {
+                console.log(
+                    "Yo, so umm, you're failing at a hard 'false'. You might not understand that referance you're failing so hard...."
+                );
+                return 0;
+            } else {
+                return newLowerGrade;
+            }
         }
     }
 }
 const randomGradeForInstructor = Math.round(100 * Math.random());
+
+const instructor0 = new Instructor({
+    name: "Instructor0",
+    age: 29,
+    location: "inside your computer, different area though.",
+    specialty: "Computer stuff, of course.",
+    favLanguage: "maybe",
+    catchPhrase: "insert catch phrase here"
+});
+// console.log(instructor0);
+// instructor0.demo("JS, last day");
 
 /*
   TASK 5
@@ -194,16 +228,36 @@ class Student extends Lambdasian {
     }
 
     graduate() {
-        if (this.grade < 70) {
-            return `${this.name} has completed Lambda and has been endorsed by the school too!`;
+        if (this.grade > 70) {
+            console.log(
+                `${this.name} has completed Lambda and has been endorsed by the school too!`
+            );
         } else {
-            Instructor.checksGrades(this.grade);
+            console.log(
+                `Sorry, ${this.name}, you'll have to try again next month.`
+            );
+
+            console.log(
+                `(One month later...) Here's your newly updated score: ${instructor0.checksGrades(
+                    this.grade
+                )}`
+            );
         }
     }
 }
-
 const randomGradeForStudent = Math.round(100 * Math.random());
 
+const student0 = new Student({
+    name: "testStudent0",
+    age: 25,
+    location: "right infront of my computer",
+    previousBackground: "where I had the webcam last",
+    className:
+        "insert name of class here, but not just there. Do this whole string dude.",
+    favSubjects: "the test subject"
+});
+console.log(student0);
+student0.graduate();
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
